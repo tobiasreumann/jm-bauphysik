@@ -603,6 +603,10 @@ section[id] { scroll-margin-top: var(--header-h); }
 /* ---------- Desktop: 4 Karten pro Reihe ---------- */
 @media (min-width: 1100px) {
   .cards { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  /* Trennlinien je Reihe auf gleicher Höhe */
+  .card { display: grid; grid-row: span 4; grid-template-rows: subgrid; }
+  .card ul { align-self: start; }
+  .card-foot { margin-top: 0; align-self: end; }
   .t-quote-icon { margin-right: 72px; }
 }
 
@@ -642,6 +646,7 @@ section[id] { scroll-margin-top: var(--header-h); }
     scroll-snap-align: start;
   }
   .card:hover { transform: none; }
+  .card h4 { min-height: 3.6em; }
   .car-nav {
     margin-top: 16px;
     display: flex;
