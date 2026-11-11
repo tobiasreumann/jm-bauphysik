@@ -21,20 +21,30 @@
   <header class="site-header">
     <div class="shell">
       <a href="#top" class="brand" aria-label="JM Bauphysik Startseite">
-        <svg width="64" height="47" aria-hidden="true"><use href="#i-logo"/></svg>
+        <svg class="brand-mark" width="64" height="47" aria-hidden="true"><use href="#i-logo"/></svg>
         <span class="brand-text">
           <strong>Bauphysik</strong>
           <small>Energie · Gebäude · Zukunft</small>
         </span>
       </a>
-      <nav class="main-nav desk" aria-label="Hauptnavigation">
+      <nav class="main-nav lg-only" aria-label="Hauptnavigation">
         <a href="#leistungen">Leistungen &amp; Preise</a>
         <a href="#profil">Über mich</a>
         <a href="#referenzen">Referenzen</a>
         <a href="#kontakt">Kontakt</a>
       </nav>
-      <a class="header-cta desk" href="#kontakt">Projekt anfragen <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="header-cta lg-only" href="#kontakt">Projekt anfragen <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Menü öffnen">
+        <span></span><span></span>
+      </button>
     </div>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile Navigation" hidden>
+      <a href="#leistungen">Leistungen &amp; Preise</a>
+      <a href="#profil">Über mich</a>
+      <a href="#referenzen">Referenzen</a>
+      <a href="#kontakt">Kontakt</a>
+      <a class="mobile-cta" href="#kontakt">Projekt anfragen <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </nav>
   </header>
 
   <main id="top">
@@ -49,7 +59,7 @@
           <p class="hero-lead">Unabhängige Beratung für energieeffiziente, komfortable und dauerhaft wertvolle Gebäude.</p>
           <a class="btn-primary" href="#leistungen">Leistungen entdecken <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
         </div>
-        <div class="hero-aside desk">
+        <div class="hero-aside lg-only">
           <div class="rule"></div>
           <p>Zertifizierter Energieeffizienz-Experte für Wohn- und Nichtwohngebäude.</p>
           <p>Bundesweite Förderprogramme</p>

@@ -1,6 +1,31 @@
 (function () {
   "use strict";
 
+  /* ---------- Mobiles Menü ---------- */
+  var toggle = document.querySelector(".menu-toggle");
+  var mobileNav = document.getElementById("mobile-nav");
+
+  function setMenu(open) {
+    if (!toggle || !mobileNav) return;
+    mobileNav.hidden = !open;
+    toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    toggle.setAttribute("aria-label", open ? "Menü schließen" : "Menü öffnen");
+    document.body.classList.toggle("menu-open", open);
+  }
+
+  if (toggle && mobileNav) {
+    toggle.addEventListener("click", function () { setMenu(mobileNav.hidden); });
+    Array.prototype.forEach.call(mobileNav.querySelectorAll("a"), function (a) {
+      a.addEventListener("click", function () { setMenu(false); });
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && !mobileNav.hidden) { setMenu(false); toggle.focus(); }
+    });
+    window.matchMedia("(min-width: 1024px)").addEventListener("change", function (mq) {
+      if (mq.matches) setMenu(false);
+    });
+  }
+
   /* ---------- Leistungen & Preise ---------- */
   var categories = [
     {
@@ -95,9 +120,72 @@
         card.appendChild(foot);
         grid.appendChild(card);
       });
+      grid.setAttribute("aria-label", cat.label);
       block.appendChild(grid);
+      block.appendChild(buildCarouselNav(grid, cat.items.length, cat.label));
       catRoot.appendChild(block);
     });
+  }
+
+  /* Carousel-Steuerung (nur unter 1100 px sichtbar, per CSS) */
+  function buildCarouselNav(track, count, label) {
+    var nav = el("div", "car-nav");
+    var prev = el("button", "car-btn car-btn--prev");
+    prev.type = "button";
+    prev.setAttribute("aria-label", label + ": vorherige Leistung");
+    prev.appendChild(icon("i-arrow"));
+    var next = el("button", "car-btn");
+    next.type = "button";
+    next.setAttribute("aria-label", label + ": nächste Leistung");
+    next.appendChild(icon("i-arrow"));
+    var dots = el("div", "car-dots");
+    var dotEls = [];
+    for (var i = 0; i < count; i++) {
+      (function (idx) {
+        var d = el("button", "car-dot");
+        d.type = "button";
+        d.setAttribute("aria-label", label + ": Leistung " + (idx + 1) + " von " + count);
+        d.addEventListener("click", function () { scrollToCard(idx); });
+        dots.appendChild(d);
+        dotEls.push(d);
+      })(i);
+    }
+    nav.appendChild(prev);
+    nav.appendChild(dots);
+    nav.appendChild(next);
+
+    function cardStep() {
+      var first = track.children[0];
+      if (!first) return 1;
+      var gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+      return first.getBoundingClientRect().width + gap;
+    }
+    function currentIndex() {
+      var maxScroll = track.scrollWidth - track.clientWidth;
+      if (maxScroll > 0 && track.scrollLeft >= maxScroll - 2) return count - 1;
+      return Math.max(0, Math.min(count - 1, Math.round(track.scrollLeft / cardStep())));
+    }
+    function scrollToCard(idx) {
+      idx = Math.max(0, Math.min(count - 1, idx));
+      track.scrollTo({ left: idx * cardStep(), behavior: "smooth" });
+    }
+    function update() {
+      var idx = currentIndex();
+      dotEls.forEach(function (d, i) { d.setAttribute("aria-current", i === idx ? "true" : "false"); });
+      var maxScroll = track.scrollWidth - track.clientWidth;
+      prev.disabled = track.scrollLeft <= 2;
+      next.disabled = track.scrollLeft >= maxScroll - 2;
+    }
+    prev.addEventListener("click", function () { scrollToCard(currentIndex() - 1); });
+    next.addEventListener("click", function () { scrollToCard(currentIndex() + 1); });
+    var raf = null;
+    track.addEventListener("scroll", function () {
+      if (raf) return;
+      raf = requestAnimationFrame(function () { raf = null; update(); });
+    }, { passive: true });
+    window.addEventListener("resize", update);
+    requestAnimationFrame(update);
+    return nav;
   }
 
   /* ---------- Kundenstimmen ---------- */
