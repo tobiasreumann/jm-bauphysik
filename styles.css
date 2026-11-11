@@ -195,14 +195,14 @@ section[id] { scroll-margin-top: var(--header-h); }
 .categories { margin-top: 72px; display: flex; flex-direction: column; gap: 72px; }
 .cat-head {
   display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 10px 24px;
-  padding-bottom: 24px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding-bottom: 28px;
 }
 .cat-no { font-size: 12px; font-weight: 600; letter-spacing: .14em; color: var(--green); }
 .cat-head h3 { font-size: 30px; font-weight: 500; letter-spacing: -.03em; color: var(--green); }
-.cat-head p { flex: 1 1 360px; font-size: 15px; line-height: 24px; color: var(--text); }
+.cat-head p { margin-top: 4px; max-width: 680px; font-size: 15px; line-height: 24px; color: var(--text); }
 
 .cards {
   display: grid;
