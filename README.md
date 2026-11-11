@@ -8,4 +8,6 @@ Wird über GitHub Pages ausgeliefert, kein Build-Schritt nötig.
 - `script.js` – Leistungen & Preise, Kundenstimmen, Demo-Hinweis beim Formular
 - `assets/` – Bilder
 
-Foto „Haus im Grünen“: Chris Weiher / Unsplash (Unsplash-Lizenz).
+Fotos unter der Unsplash-Lizenz:
+- „Wohnhaus am Hang“ (`assets/reference-1.jpg`): Nitish Nayak / Unsplash
+- „Haus im Grünen“ (`assets/reference-2.jpg`): Chris Weiher / Unsplash
