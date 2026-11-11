@@ -1,0 +1,37 @@
+/* ==========================================================================
+   Anpassung der Kommentarfunktion an JM Bauphysik
+   Überschreibt nur Farben und den Hover-Rahmen aus feedback.css,
+   die Originaldatei bleibt unverändert.
+   ========================================================================== */
+
+.fb-root {
+  --fb-accent: #1f7a1f;          /* statt Orange: kräftiges Waldgrün */
+  --fb-accent-strong: #145c14;
+  --fb-accent-soft: #e7f2e5;
+  --fb-change: #8a5a00;          /* Typ "Bitte ändern": Ocker statt Orange */
+  --fb-chrome: #10201a;          /* Werkzeugleiste im Dunkelgrün der Seite */
+  --fb-chrome-2: #1d3227;
+}
+
+/* Hover: nur umranden, nicht einfärben.
+   Doppelter Rand (grün + heller Saum), damit er auf hellen und dunklen
+   Flächen gleich gut sichtbar ist. */
+.fb-frame {
+  background: transparent;
+  border: 2px dashed var(--fb-accent);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, .85), inset 0 0 0 1px rgba(255, 255, 255, .6);
+}
+.fb-frame.fb-frame--active {
+  background: transparent;
+  border-style: solid;
+}
+
+/* Fokus- und Eingabefeld-Schatten ohne Orange */
+.fb-root textarea:focus,
+.fb-root input[type="text"]:focus,
+.fb-root select:focus {
+  box-shadow: 0 0 0 3px rgba(31, 122, 31, .18);
+}
+
+/* Typ-Kennzeichnung "Bitte ändern" passend zur neuen Farbe */
+.fb-type--change { background: #fbf3e2; color: var(--fb-change); }
